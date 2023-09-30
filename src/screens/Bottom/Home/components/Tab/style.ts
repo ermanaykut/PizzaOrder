@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.babypink + 30,
   },
   activeSubTabContainer: {
-    backgroundColor: colors.green,
+    backgroundColor: colors.green + 95,
   },
   activeSubTabContainerDessert: {
     backgroundColor: colors.babypink,
