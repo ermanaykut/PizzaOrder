@@ -8,7 +8,7 @@ import {DATA} from './data';
 import { DessertItem } from './components';
 import { IDessert } from '../../../../../constants/types';
 
-const Pizzas = () => {
+const Desserts = () => {
   const [dessertList, setDessertList] = useState<IDessert[]>(DATA);
 
   useEffect(() => {
@@ -36,4 +36,4 @@ const Pizzas = () => {
   );
 };
 
-export default Pizzas;
+export default Desserts;

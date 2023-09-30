@@ -11,7 +11,7 @@ const DessertItem = ({item}: {item: IDessert}) => {
   const navigation = useNavigation<any>();
 
   const navigateToDetail = ()=>{
-    navigation.navigate(PAGES.DESSET_DETAIL.name, {item})
+    navigation.navigate(PAGES.DESSERT_DETAIL.name, {item})
   }
 
 
