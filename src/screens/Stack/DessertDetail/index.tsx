@@ -18,7 +18,7 @@ const DessertDetail = ({route}: any) => {
       <View>
         <Image source={{uri: item?.img}} style={styles.image} />
         <View style={styles.bottomContainer}>
-          <Text style={styles.name}>{`${item.name}`}</Text>
+          <Text style={styles.name}>{`${item?.name}`}</Text>
           <Text style={styles.description}>{item?.description}</Text>
         </View>
       </View>

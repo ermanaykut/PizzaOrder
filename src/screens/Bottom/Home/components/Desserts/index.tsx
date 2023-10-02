@@ -1,37 +1,40 @@
-import {View, Text, FlatList} from 'react-native';
 import React, {useEffect, useState} from 'react';
+import {View, FlatList} from 'react-native';
+
+import {IDessert} from '../../../../../constants/types';
+import {DessertItem} from './components';
 
 import {dessertService} from '../../../../../services';
 
-
 import {DATA} from './data';
-import { DessertItem } from './components';
-import { IDessert } from '../../../../../constants/types';
+
+import styles from './style';
 
 const Desserts = () => {
   const [dessertList, setDessertList] = useState<IDessert[]>(DATA);
 
   useEffect(() => {
-    //getDesserts();
-
+    // getDesserts();
   }, []);
 
   const getDesserts = () => {
-      dessertService
+    dessertService
       .getDesserts()
       .then(res => {
-        setDessertList(res?.data);;
+        setDessertList(res?.data);
       })
       .catch(err => {
         console.log(err);
       });
   };
 
-  const renderDessert = ({item}: {item: IDessert}) => <DessertItem{...{item}} />;
+  const renderDessert = ({item}: {item: IDessert}) => (
+    <DessertItem {...{item}} />
+  );
 
   return (
-    <View>
-      <FlatList data={dessertList} renderItem={renderDessert}/>
+    <View style={styles.container}>
+      <FlatList data={dessertList} renderItem={renderDessert} />
     </View>
   );
 };

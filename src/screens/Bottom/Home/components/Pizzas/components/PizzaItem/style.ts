@@ -23,14 +23,14 @@ const styles = StyleSheet.create({
     borderRadius: 4,
   },
   name: {
-    color: colors.darkgreen +90,
+    color: colors.darkgreen,
   },
   description: {
     color: colors.grey,
     fontSize: 12,
   },
   price: {
-    color: colors.green +90,
+    color: colors.green,
     fontSize: 16,
     alignSelf: 'flex-end',
     marginTop: 20,

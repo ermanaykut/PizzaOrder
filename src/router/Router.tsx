@@ -4,9 +4,6 @@ import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {NavigationContainer} from '@react-navigation/native';
 
-import DeliveryNavigator from './delivery-navigator';
-
-import {Login, Register} from '../screens';
 import {PAGES} from '../screens/pages';
 
 const Stack = createNativeStackNavigator();

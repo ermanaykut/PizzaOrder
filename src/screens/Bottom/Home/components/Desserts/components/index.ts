@@ -1,3 +1,3 @@
-import DessertItem from "./DessertItem";
+import DessertItem from './DessertItem';
 
 export {DessertItem};

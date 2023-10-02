@@ -42,6 +42,13 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     borderRadius: 100,
   },
+  sizeContainer: {
+    padding: 12,
+    marginTop: 20,
+    borderWidth: 1,
+    borderColor: colors.border,
+    borderRadius: 8,
+  },
   disabledIcon: {
     backgroundColor: colors.white + 90,
   },
@@ -57,6 +64,24 @@ const styles = StyleSheet.create({
   priceText: {
     color: colors.darkblue,
     fontSize: 24,
+  },
+  actionSheetContainer: {
+    height: 280,
+    padding: 20,
+  },
+  title: {
+    color: colors.darkgreen,
+    fontSize: 18,
+    marginBottom: 40,
+  },
+  addToCartContainer: {
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 4,
+    backgroundColor: colors.white,
+  },
+  addToCartText: {
+    color: colors.darkgreen,
   },
 });
 

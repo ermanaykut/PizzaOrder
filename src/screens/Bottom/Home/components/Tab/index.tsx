@@ -25,8 +25,8 @@ const Tab = ({
       <Pressable
         onPress={changeActiveIndex}
         style={[
-          styles.subTabContainerDessert,
-          !activeIndex && styles.activeSubTabContainerDessert,
+          styles.subTabContainer,
+          !activeIndex && styles.activeSubTabContainer,
         ]}>
         <Text
           style={[styles.subTabText, !activeIndex && styles.activeSubTabText]}>
