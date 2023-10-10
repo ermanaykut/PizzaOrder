@@ -2964,9 +2964,9 @@ csstype@^3.0.2:
   resolved "https://registry.yarnpkg.com/csstype/-/csstype-3.1.2.tgz#1d4bf9d572f11c14031f0436e1c10bc1f571f50b"
   integrity sha512-I7K1Uu0MBPzaFKg4nI5Q7Vs2t+3gWWW648spaF+Rg7pI9ds18Ugn+lvg4SHczUdKlHI5LWBXyqfS8+DufyBsgQ==
 
-"custom-components@git+https://github.com/ermanaykut/RN-Custom-Components.git#0.0.1":
-  version "0.1.0"
-  resolved "git+https://github.com/ermanaykut/RN-Custom-Components.git#3db1c162fbe823def5c6205ca8e94459c07a0e1f"
+"custom-components@git+https://github.com/ermanaykut/RN-Custom-Components.git#0.1.1":
+  version "0.1.1"
+  resolved "git+https://github.com/ermanaykut/RN-Custom-Components.git#a56fa5a52ff7b1db24c598ecafa86bdd56c6f931"
   dependencies:
     "@types/react-native-vector-icons" "^6.4.13"
     react-native-paper "^5.8.0"

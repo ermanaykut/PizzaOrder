@@ -1,6 +1,6 @@
 import {action, makeObservable, observable} from 'mobx';
 
-class CartStore {
+class CartStoreCopy {
   constructor() {
     makeObservable(this);
   }
@@ -8,12 +8,24 @@ class CartStore {
   @observable cart: any[] = [];
   @observable total: number = 0;
 
-  @action addToCart = (params: any) => {
+  @action addToCart = (params: any, productType: string) => {
     this.total += params?.count * params?.price;
     console.log(this.total);
     let product = this.cart.find(x => x?.item?.id === params?.item?.id);
     if (product) {
-      if (product?.size?.id == params?.size?.id) {
+      if (productType === 'pizza')
+        if (product?.size?.id == params?.size?.id) {
+          product = {
+            ...product,
+            count: product?.count + params?.count,
+          };
+          let arr = this.cart.filter(x => x?.item?.id != product?.item?.id);
+          this.cart = arr;
+          this.cart.push(product);
+        } else {
+          this.cart.push(params);
+        }
+      else {
         product = {
           ...product,
           count: product?.count + params?.count,
@@ -21,8 +33,6 @@ class CartStore {
         let arr = this.cart.filter(x => x?.item?.id != product?.item?.id);
         this.cart = arr;
         this.cart.push(product);
-      } else {
-        this.cart.push(params);
       }
     } else {
       this.cart.push(params);
@@ -38,15 +48,15 @@ class CartStore {
     };
     this.cart = arr;
     if (type === 'plus') this.total += params?.price;
-    else this.total -= params?.price;//deleteProduct'ta total azaltılmadığı için total ürün silinmesinde azalmıyor
+    else this.total -= params?.price;
   };
 
-  @action clearAll = () => (this.cart = []); //total sıfırlanmıyor
+  @action clearAll = () => (this.cart = []); 
 
-  @action deleteProduct = (params: any) => {
+  @action deleteProduct = (params: any, productType:string) => {
     let arr = this.cart.filter(x => x?.item?.id !== params?.item?.id);
-    this.cart = arr;//id eşit olmayanlar filtrelenince bütün pizza boyları siliniyor ve total sıfırlama olmuyor
+    this.cart = arr;
   };
 }
 
-export default new CartStore();
+export default new CartStoreCopy();

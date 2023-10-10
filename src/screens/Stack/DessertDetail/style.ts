@@ -59,6 +59,15 @@ const styles = StyleSheet.create({
     color: colors.black,
     fontSize: 24,
   },
+  addToCartContainer: {
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 4,
+    backgroundColor: colors.white,
+  },
+  addToCartText: {
+    color: colors.darkgreen,
+  },
 });
 
 export default styles;

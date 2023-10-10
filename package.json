@@ -17,7 +17,7 @@
     "@react-navigation/native": "^6.1.7",
     "@react-navigation/native-stack": "^6.9.13",
     "axios": "^1.5.0",
-    "custom-components": "git+https://github.com/ermanaykut/RN-Custom-Components.git#0.0.1",
+    "custom-components": "git+https://github.com/ermanaykut/RN-Custom-Components.git#0.1.1",
     "mobx": "^6.10.2",
     "mobx-react": "^9.0.1",
     "mobx-react-lite": "^4.0.5",

@@ -1,3 +1,4 @@
 import ProductItem from './ProductItem';
+import DessertItem from './DessertItem';
 
-export {ProductItem};
+export {ProductItem, DessertItem};

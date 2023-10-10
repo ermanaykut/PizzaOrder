@@ -23,14 +23,17 @@ const styles = StyleSheet.create({
     borderRadius: 4,
   },
   name: {
-    color: colors.darkgreen,
+    color: colors.babypink,
+    fontWeight:'600'
+
   },
   description: {
     color: colors.grey,
     fontSize: 12,
   },
   price: {
-    color: colors.green,
+    color: colors.babypink,
+    fontWeight:'700',
     fontSize: 16,
     alignSelf: 'flex-end',
     marginTop: 20,

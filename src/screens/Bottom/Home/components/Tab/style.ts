@@ -20,7 +20,21 @@ const styles = StyleSheet.create({
     backgroundColor: colors.green + 10,
   },
   activeSubTabContainer: {
-    backgroundColor: colors.green,
+    backgroundColor: colors.green + 90,
+  },
+  subTabContainerDessert: {
+    width: '48%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    borderWidth: 1,
+    borderColor: colors.border,
+    borderRadius: 8,
+    backgroundColor: colors.babypink + 30,
+  },
+  activeSubTabContainerDessert: {
+    backgroundColor: colors.babypink,
   },
   subTabText: {
     color: colors.black,

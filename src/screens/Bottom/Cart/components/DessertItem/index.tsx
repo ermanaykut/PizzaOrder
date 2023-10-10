@@ -9,7 +9,7 @@ import {colors} from '../../../../../constants/colors';
 import {cartStore} from '../../../../../store';
 import { Icon } from 'custom-components/src';
 
-const ProductItem = ({item}: {item: any}) => {
+const DessertItem = ({item}: {item: any}) => {
   const navigation = useNavigation<any>();
 
   const [count, setCount] = useState<number>(item?.count);
@@ -19,7 +19,7 @@ const ProductItem = ({item}: {item: any}) => {
   }, [item]);
 
   const navigateToDetail = () =>
-    navigation.navigate(PAGES.PIZZA_DETAIL.name, {item: item?.item, type:'pizza'});
+    navigation.navigate(PAGES.DESSERT_DETAIL.name, {item: item?.item, type:'dessert'});
 
   const decreaseCount = () => {
     if (count === 1) {
@@ -72,4 +72,4 @@ const ProductItem = ({item}: {item: any}) => {
   );
 };
 
-export default ProductItem;
+export default DessertItem;

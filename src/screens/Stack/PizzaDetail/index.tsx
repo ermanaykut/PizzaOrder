@@ -20,6 +20,9 @@ const PizzaDetail = ({route}: any) => {
   });
   const [count, setCount] = useState<number>(1);
   const [price, setPrice] = useState<number>(item?.price ?? 0);
+  
+  const productType: string = 'pizza'
+
 
   useEffect(() => {
     if (size) setPrice(item?.price + size?.price);
@@ -38,6 +41,7 @@ const PizzaDetail = ({route}: any) => {
       price,
       size,
       count,
+      productType,
     };
 
     cartStore.addToCart(params);

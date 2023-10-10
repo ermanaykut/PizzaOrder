@@ -33,6 +33,37 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     width: '30%',
   },
+  emptyCartContainer:{
+    borderWidth:1,
+    flex:1,
+    alignItems:'center',
+    justifyContent:'center',
+
+  },
+  textContainer:{
+
+    marginVertical:15,
+  },
+  guiderText:{
+    fontSize:16,
+    lineHeight:20
+  },
+  imageContainer:{
+    width:'100%',
+    flexDirection:'row',
+    justifyContent:'space-evenly',
+    marginVertical:15,
+  },
+  pizzaImage:{
+    width:60,
+    height:60,
+    borderWidth:1,
+  },
+  cakeImage:{
+    width:60,
+    height:60,
+  },
+
 });
 
 export default styles;

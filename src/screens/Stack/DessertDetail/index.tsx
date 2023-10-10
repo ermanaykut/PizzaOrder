@@ -1,22 +1,51 @@
-import {View, Text, Image, Pressable} from 'react-native';
-import React, {useState} from 'react';
-import {IDessert} from '../../../constants/types';
+import { View, Text, Image, Pressable } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { IDessert } from '../../../constants/types';
 import styles from './style';
 import { Icon } from 'custom-components/src';
+import { cartStore } from '../../../store';
+import { observer } from 'mobx-react-lite';
 
-
-const DessertDetail = ({route}: any) => {
-  const {item}: {item: IDessert} = route?.params ?? {};
+const DessertDetail = ({ route }: any) => {
+  const { item }: { item: IDessert } = route?.params ?? {};
   const [count, setCount] = useState<number>(1);
+  const [price, setPrice] = useState<number>(item?.price ?? 0);
 
-  const decreaseCount = () => setCount(count => --count);
+  const productType: string = 'dessert'
 
-  const increaseCount = () => setCount(count => ++count);
+  useEffect(() => {
+    if(count) setPrice(item?.price);
+  }, [count]);
+
+  const decreaseCount = () => setCount((count) => --count);
+
+  const increaseCount = () => setCount((count) => ++count);
+
+  const addToCart = () => {
+    const existingCartItem = cartStore.cart.find(
+      (cartItem) => cartItem.item.id === item.id
+    );
+
+    if (existingCartItem) {
+      // Update the quantity of the existing item
+      existingCartItem.count += count;
+     // cartStore.updateCart([...cartStore.cart]);
+    } else {
+      // If the item is not in the cart, add it as a new item
+      const params = {
+        item,
+        price,
+        count,
+        productType
+      };
+      cartStore.addToCart(params);
+    }
+  };
 
   return (
     <View style={styles.container}>
       <View>
-        <Image source={{uri: item?.img}} style={styles.image} />
+        <Image source={{ uri: item?.img }} style={styles.image} />
         <View style={styles.bottomContainer}>
           <Text style={styles.name}>{`${item?.name}`}</Text>
           <Text style={styles.description}>{item?.description}</Text>
@@ -27,7 +56,11 @@ const DessertDetail = ({route}: any) => {
           <Pressable
             disabled={count === 1}
             onPress={decreaseCount}
-            style={[styles.iconContainer, count === 1 && styles.disabledIcon]}>
+            style={[
+              styles.iconContainer,
+              count === 1 && styles.disabledIcon,
+            ]}
+          >
             <Icon name="minus : materialcomm" size={18} />
           </Pressable>
           <Text style={styles.countText}>{count}</Text>
@@ -36,11 +69,14 @@ const DessertDetail = ({route}: any) => {
           </Pressable>
         </View>
         <View style={styles.subPriceContainer}>
-          <Text style={styles.priceText}>€{item?.price * count}</Text>
+          <Text style={styles.priceText}>€{price * count}</Text>
         </View>
+        <Pressable onPress={addToCart} style={styles.addToCartContainer}>
+          <Text style={styles.addToCartText}>Add To Cart</Text>
+        </Pressable>
       </View>
     </View>
   );
 };
 
-export default DessertDetail;
+export default observer(DessertDetail);

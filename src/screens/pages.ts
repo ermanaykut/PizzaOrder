@@ -1,10 +1,12 @@
 import DeliveryNavigator from '../router/delivery-navigator';
+import CartNavigator from '../router/cart-navigator';
 import {Login, PizzaDetail, Register, DessertDetail} from './Stack';
 
 enum NAMES {
    LOGIN = 'LOGIN',
    REGISTER = 'REGISTER',
   BOTTOM = 'BOTTOM',
+  CART = 'CART',
   PIZZA_DETAIL = 'PIZZA_DETAIL',
   DESSERT_DETAIL = 'DESSERT_DETAIL',
 }
@@ -27,6 +29,10 @@ export const PAGES: {
   [NAMES.BOTTOM]: {
     name: 'DeliveryNavigator',
     component: DeliveryNavigator,
+  }, 
+  [NAMES.CART]: {
+    name: 'CartNavigator',
+    component: CartNavigator,
   },
   [NAMES.PIZZA_DETAIL]: {
     name: 'PizzaDetail',
