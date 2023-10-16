@@ -1,4 +1,5 @@
 import {action, makeObservable, observable} from 'mobx';
+import {EProductType} from '../constants/types';
 
 class CartStore {
   constructor() {
@@ -9,23 +10,41 @@ class CartStore {
   @observable total: number = 0;
 
   @action addToCart = (params: any) => {
-    this.total += params?.count * params?.price;
-    console.log(this.total);
-    let product = this.cart.find(x => x?.item?.id === params?.item?.id);
+    // pizza ve tatlı
+    this.total += params?.price * params?.count;
+
+    let product = this.cart.find(
+      x => x?.item?.id === params?.item?.id && x?.size?.id === params?.size?.id,
+    );
+
     if (product) {
-      if (product?.size?.id == params?.size?.id) {
-        product = {
-          ...product,
-          count: product?.count + params?.count,
-        };
-        let arr = this.cart.filter(x => x?.item?.id != product?.item?.id);
-        this.cart = arr;
-        this.cart.push(product);
-      } else {
-        this.cart.push(params);
-      }
+      //ürün ve boyut aynı ise
+      product = {
+        ...product,
+        count: product?.count + params?.count,
+      };
+      // 1 s 1
+      // 1 m 1
+      // 2 s 1
+      let arr: any[] = [];
+
+      this.cart.map(x => {
+        if (x?.item?.id === product?.item?.id) {
+          if (x?.size?.id !== product?.size?.id) {
+            arr.push(x);
+          }
+        } else {
+          arr.push(x);
+        }
+      });
+      arr?.push(product);
+      this.cart = arr ?? [];
     } else {
-      this.cart.push(params);
+      //ürün yoksa veya boyut farklıysa
+      let arr: any[] = this.cart;
+
+      arr.push(params);
+      this.cart = arr ?? [];
     }
   };
 
@@ -38,14 +57,28 @@ class CartStore {
     };
     this.cart = arr;
     if (type === 'plus') this.total += params?.price;
-    else this.total -= params?.price;//deleteProduct'ta total azaltılmadığı için total ürün silinmesinde azalmıyor
+    else this.total -= params?.price; //deleteProduct'ta total azaltılmadığı için total ürün silinmesinde azalmıyor
   };
 
-  @action clearAll = () => (this.cart = []); //total sıfırlanmıyor
+  @action clearAll = () => {
+    this.cart = [];
+    this.total = 0;
+  }; //total sıfırlanmıyor
 
   @action deleteProduct = (params: any) => {
-    let arr = this.cart.filter(x => x?.item?.id !== params?.item?.id);
-    this.cart = arr;//id eşit olmayanlar filtrelenince bütün pizza boyları siliniyor ve total sıfırlama olmuyor
+    let arr: any[] = [];
+    this.cart?.map(x => {
+      if (x?.item?.id === params?.item?.id) {
+        console.log('in', x?.size);
+        if (params?.productType === EProductType.PIZZA) {
+          if (x?.size?.id !== params?.size?.id) {
+            console.log('inin');
+            arr.push(x);
+          }
+        }
+      } else arr.push(x);
+    });
+    this.cart = arr;
   };
 }
 

@@ -1,6 +1,6 @@
 export interface IPizza {
   description: string;
-  id: number;
+  id: string | number;
   img: string;
   name: string;
   price: number;
@@ -16,4 +16,9 @@ export interface IDessert {
   name: string;
   price: number;
   quantity: number;
+}
+
+export enum EProductType {
+  PIZZA = 'pizza',
+  DESSERT = 'dessert',
 }

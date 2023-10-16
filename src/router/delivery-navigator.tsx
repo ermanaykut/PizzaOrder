@@ -8,7 +8,9 @@ const Tab = createBottomTabNavigator();
 
 export default function DeliveryNavigator() {
   return (
-    <Tab.Navigator tabBar={(props: any) => <CustomTabBar {...props} />}>
+    <Tab.Navigator
+      tabBar={(props: any) => <CustomTabBar {...props} />}
+      screenOptions={{headerShown: false}}>
       <Tab.Screen
         name="Home"
         component={Home}

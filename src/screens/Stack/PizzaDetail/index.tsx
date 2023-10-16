@@ -4,28 +4,40 @@ import React, {useEffect, useRef, useState} from 'react';
 import styles from './style';
 import {Icon} from 'custom-components/src';
 import ActionSheet, {ActionSheetRef} from 'react-native-actions-sheet';
-import {PizzaSize} from './components';
+import {PizzaExtra, PizzaSize} from './components';
 import {cartStore} from '../../../store';
 import {observer} from 'mobx-react-lite';
-import { IPizza } from '../../../constants/types';
+import {EProductType, IPizza} from '../../../constants/types';
 
 const PizzaDetail = ({route}: any) => {
   const {item}: {item: IPizza} = route?.params ?? {};
   const actionSheetRef = useRef<ActionSheetRef>(null);
+  const extraActionRef = useRef<ActionSheetRef>(null);
 
   const [size, setSize] = useState<{id: number; name: string; price: number}>({
     id: 0,
     name: 'Small',
     price: 0,
   });
+  const [extra, setExtra] = useState<{
+    id: number;
+    name: string;
+    price: number[];
+  } | null>();
+
   const [count, setCount] = useState<number>(1);
   const [price, setPrice] = useState<number>(item?.price ?? 0);
-  
-  const productType: string = 'pizza'
 
+  const productType: EProductType = EProductType.PIZZA;
 
   useEffect(() => {
-    if (size) setPrice(item?.price + size?.price);
+    if (size) {
+      setPrice(item?.price + size?.price + (extra?.price?.[size?.id] ?? 0));
+    }
+  }, [extra, size]);
+
+  useEffect(() => {
+    setExtra(null);
   }, [size]);
 
   const decreaseCount = () => setCount(count => --count);
@@ -34,10 +46,17 @@ const PizzaDetail = ({route}: any) => {
 
   const openSizeAction = () => actionSheetRef.current?.show();
 
+  const openExtraAction = () => extraActionRef?.current?.show();
+
   const addToCart = () => {
     // console.log([4, 6, 8][size?.id])
     const params = {
-      item,
+      item: {
+        ...item,
+        id: item?.id?.toString()?.includes(EProductType.PIZZA)
+          ? item?.id
+          : item?.id + productType,
+      },
       price,
       size,
       count,
@@ -65,6 +84,24 @@ const PizzaDetail = ({route}: any) => {
     },
   ];
 
+  const EXTRAS: {id: number; name: string; price: number[]}[] = [
+    {
+      id: 1,
+      name: 'Onion',
+      price: [3, 6, 9],
+    },
+    {
+      id: 2,
+      name: 'Cheese',
+      price: [4, 8, 10],
+    },
+    {
+      id: 3,
+      name: 'Olive',
+      price: [1, 2, 3],
+    },
+  ];
+
   // const EXTRAS = [
   //   {
   //     id: 1,
@@ -78,11 +115,22 @@ const PizzaDetail = ({route}: any) => {
     setSize(item);
   };
 
+  const onPressExtra = (item: {id: number; name: string; price: number[]}) => {
+    extraActionRef.current?.hide();
+    setExtra(item);
+  };
+
   const renderSize = ({
     item,
   }: {
     item: {id: number; name: string; price: number};
   }) => <PizzaSize {...{item, onPress}} />;
+
+  const renderExtra = ({
+    item,
+  }: {
+    item: {id: number; name: string; price: number[]};
+  }) => <PizzaExtra {...{item, size, onPress: onPressExtra}} />;
 
   return (
     <View style={styles.container}>
@@ -95,6 +143,10 @@ const PizzaDetail = ({route}: any) => {
           <Text style={styles.description}>{item?.description}</Text>
           <Pressable onPress={openSizeAction} style={styles.sizeContainer}>
             <Text>Pizza Size: {size?.name}</Text>
+          </Pressable>
+
+          <Pressable onPress={openExtraAction} style={styles.sizeContainer}>
+            <Text>Extra: {extra?.name}</Text>
           </Pressable>
         </View>
       </View>
@@ -123,6 +175,13 @@ const PizzaDetail = ({route}: any) => {
         <View style={styles.actionSheetContainer}>
           <Text style={styles.title}>Choose Pizza Size</Text>
           <FlatList data={SIZES} renderItem={renderSize} />
+        </View>
+      </ActionSheet>
+
+      <ActionSheet ref={extraActionRef} gestureEnabled>
+        <View style={styles.actionSheetContainer}>
+          <Text style={styles.title}>Choose Extras</Text>
+          <FlatList data={EXTRAS} renderItem={renderExtra} />
         </View>
       </ActionSheet>
     </View>

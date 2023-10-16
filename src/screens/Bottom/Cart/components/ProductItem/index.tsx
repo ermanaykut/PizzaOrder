@@ -7,7 +7,7 @@ import styles from './style';
 
 import {colors} from '../../../../../constants/colors';
 import {cartStore} from '../../../../../store';
-import { Icon } from 'custom-components/src';
+import {Icon} from 'custom-components/src';
 
 const ProductItem = ({item}: {item: any}) => {
   const navigation = useNavigation<any>();
@@ -18,8 +18,11 @@ const ProductItem = ({item}: {item: any}) => {
     if (item && item?.count) setCount(item?.count);
   }, [item]);
 
-  const navigateToDetail = () =>
-    navigation.navigate(PAGES.PIZZA_DETAIL.name, {item: item?.item, type:'pizza'});
+  const navigateToDetail = () => {
+    navigation.navigate(PAGES.PIZZA_DETAIL.name, {
+      item: item?.item,
+    });
+  };
 
   const decreaseCount = () => {
     if (count === 1) {

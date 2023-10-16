@@ -1,2 +1,4 @@
+import PizzaExtra from './PizzaExtra';
 import PizzaSize from './PizzaSize';
-export {PizzaSize};
+
+export {PizzaExtra, PizzaSize};

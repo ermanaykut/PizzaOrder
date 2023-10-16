@@ -1,11 +1,17 @@
 import {View} from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import {Desserts, Pizzas, Tab} from './components';
 import globalStyle from '../../../constants/style';
 
-const Home = () => {
+const Home = ({route}: any) => {
+  const {type = true} = route?.params ?? {};
+
   const [activeIndex, setActiveIndex] = useState<boolean>(true);
+
+  useEffect(() => {
+    setActiveIndex(type);
+  }, [type]);
 
   const changeActiveIndex = () => {
     setActiveIndex(!activeIndex);

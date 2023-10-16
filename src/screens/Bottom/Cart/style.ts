@@ -1,5 +1,7 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Dimensions} from 'react-native';
 import {colors} from '../../../constants/colors';
+
+const {height} = Dimensions.get('screen');
 
 const styles = StyleSheet.create({
   container: {
@@ -33,37 +35,35 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     width: '30%',
   },
-  emptyCartContainer:{
-    borderWidth:1,
-    flex:1,
-    alignItems:'center',
-    justifyContent:'center',
-
+  emptyCartContainer: {
+    height: height * 0.7,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  textContainer:{
-
-    marginVertical:15,
+  textContainer: {
+    marginVertical: 15,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  guiderText:{
-    fontSize:16,
-    lineHeight:20
+  guiderText: {
+    fontSize: 16,
+    marginBottom: 20,
+    textAlign: 'center',
   },
-  imageContainer:{
-    width:'100%',
-    flexDirection:'row',
-    justifyContent:'space-evenly',
-    marginVertical:15,
+  imageContainer: {
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    marginVertical: 15,
   },
-  pizzaImage:{
-    width:60,
-    height:60,
-    borderWidth:1,
+  pizzaImage: {
+    width: 60,
+    height: 60,
   },
-  cakeImage:{
-    width:60,
-    height:60,
+  cakeImage: {
+    width: 60,
+    height: 60,
   },
-
 });
 
 export default styles;
