@@ -66,8 +66,9 @@ const styles = StyleSheet.create({
     fontSize: 24,
   },
   actionSheetContainer: {
-    height: 280,
+    height: 350,
     padding: 20,
+    paddingBottom: 40,
   },
   title: {
     color: colors.darkgreen,
@@ -81,6 +82,17 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
   },
   addToCartText: {
+    color: colors.darkgreen,
+  },
+  button: {
+    borderWidth: 1,
+    borderColor: colors.border,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 12,
+    borderRadius: 100,
+  },
+  buttonText: {
     color: colors.darkgreen,
   },
 });

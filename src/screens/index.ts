@@ -1,4 +1,3 @@
-import {Login, PizzaDetail, Register, DessertDetail} from './Stack';
-import {Cart, Home, Profile} from './Bottom';
+export {Addresses, Login, PizzaDetail, Register, DessertDetail} from './Stack';
 
-export {Cart, Home, Profile, PizzaDetail, Login, Register, DessertDetail};
+export {Cart, Home, Profile} from './Bottom';

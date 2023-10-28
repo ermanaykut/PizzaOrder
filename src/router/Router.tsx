@@ -12,7 +12,7 @@ function Router() {
   return (
     <SafeAreaView style={{flex: 1}}>
       <NavigationContainer>
-        <Stack.Navigator screenOptions={{headerShown: false}}>
+        <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName='Addresses'>
           {Object.values(PAGES).map(x => {
             return (
               <Stack.Screen

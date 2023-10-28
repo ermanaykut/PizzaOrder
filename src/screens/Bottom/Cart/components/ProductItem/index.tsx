@@ -45,7 +45,7 @@ const ProductItem = ({item}: {item: any}) => {
         <View style={styles.rightLeftContainer}>
           <Text style={styles.name}>{item?.item?.name}</Text>
           <Text style={styles.description} numberOfLines={1}>
-            {item?.item?.description}
+            {item?.extra?.map((x: any) => x?.name)?.join(', ')}
           </Text>
           <Text style={styles.size}>{item?.size?.name}</Text>
         </View>

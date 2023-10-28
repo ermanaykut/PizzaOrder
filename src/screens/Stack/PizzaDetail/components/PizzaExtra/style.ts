@@ -22,6 +22,25 @@ const styles = StyleSheet.create({
   plus: {
     color: colors.green,
   },
+  checkboxContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  checkbox: {
+    width: 20,
+    height: 20,
+    borderWidth: 1,
+    borderRadius: 4,
+    borderColor: colors.darkgreen,
+    marginRight: 12,
+  },
+  iconContainer: {
+    position: 'absolute',
+    top: -10,
+    width: 30,
+    height: 30,
+    right: -12,
+  },
 });
 
 export default styles;

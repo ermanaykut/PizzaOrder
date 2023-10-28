@@ -19,26 +19,53 @@ class CartStore {
 
     if (product) {
       //ürün ve boyut aynı ise
-      product = {
-        ...product,
-        count: product?.count + params?.count,
-      };
-      // 1 s 1
-      // 1 m 1
-      // 2 s 1
-      let arr: any[] = [];
+      if (params?.extra?.length === product?.extra?.length) {
+        let control = false;
 
-      this.cart.map(x => {
-        if (x?.item?.id === product?.item?.id) {
-          if (x?.size?.id !== product?.size?.id) {
-            arr.push(x);
+        for (let i = 0; i < params?.extra?.length; i++) {
+          if (
+            product?.extra?.find((x: any) => x?.id === params?.extra?.[i]?.id)
+          ) {
+            control = true;
+          } else {
+            control = false;
+            break;
           }
-        } else {
-          arr.push(x);
         }
-      });
-      arr?.push(product);
-      this.cart = arr ?? [];
+
+        if (!control) {
+          let arr: any[] = this.cart;
+
+          arr.push(params);
+          this.cart = arr ?? [];
+        } else {
+          product = {
+            ...product,
+            count: product?.count + params?.count,
+          };
+          // 1 s 1
+          // 1 m 1
+          // 2 s 1
+          let arr: any[] = [];
+
+          this.cart.map(x => {
+            if (x?.item?.id === product?.item?.id) {
+              if (x?.size?.id === product?.size?.id) {
+              }
+            } else {
+              arr.push(x);
+            }
+          });
+          arr?.push(product);
+          this.cart = arr ?? [];
+        }
+      } else {
+        //ürün varsa ve boyut aynıysa ve ekstraların sayısı farklıysa
+        let arr: any[] = this.cart;
+
+        arr.push(params);
+        this.cart = arr ?? [];
+      }
     } else {
       //ürün yoksa veya boyut farklıysa
       let arr: any[] = this.cart;

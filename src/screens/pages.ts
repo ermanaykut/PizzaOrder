@@ -1,14 +1,15 @@
 import DeliveryNavigator from '../router/delivery-navigator';
-import {Login, PizzaDetail, Register, DessertDetail} from './Stack';
+import {PizzaDetail, DessertDetail, Addresses} from './Stack';
 import {Home} from './Bottom';
 
 enum NAMES {
-  LOGIN = 'LOGIN',
-  REGISTER = 'REGISTER',
+  // LOGIN = 'LOGIN',
+  // REGISTER = 'REGISTER',
   BOTTOM = 'BOTTOM',
   PIZZA_DETAIL = 'PIZZA_DETAIL',
   DESSERT_DETAIL = 'DESSERT_DETAIL',
   HOME = 'HOME',
+  ADDRESSES = 'ADDRESSES',
 }
 
 export const PAGES: {
@@ -18,14 +19,14 @@ export const PAGES: {
     options?: any;
   };
 } = {
-  [NAMES.LOGIN]: {
-    name: 'Login',
-    component: Login,
-  },
-  [NAMES.REGISTER]: {
-    name: 'Register',
-    component: Register,
-  },
+  // [NAMES.LOGIN]: {
+  //   name: 'Login',
+  //   component: Login,
+  // },
+  // [NAMES.REGISTER]: {
+  //   name: 'Register',
+  //   component: Register,
+  // },
   [NAMES.BOTTOM]: {
     name: 'DeliveryNavigator',
     component: DeliveryNavigator,
@@ -41,5 +42,9 @@ export const PAGES: {
   [NAMES.HOME]: {
     name: 'Home',
     component: Home,
+  },
+  [NAMES.ADDRESSES]: {
+    name: 'Addresses',
+    component: Addresses,
   },
 };

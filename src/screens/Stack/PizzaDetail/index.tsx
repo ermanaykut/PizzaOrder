@@ -2,7 +2,7 @@ import {View, Text, Image, Pressable, FlatList} from 'react-native';
 import React, {useEffect, useRef, useState} from 'react';
 
 import styles from './style';
-import {Icon} from 'custom-components/src';
+import {Button, Icon} from 'custom-components/src';
 import ActionSheet, {ActionSheetRef} from 'react-native-actions-sheet';
 import {PizzaExtra, PizzaSize} from './components';
 import {cartStore} from '../../../store';
@@ -19,26 +19,51 @@ const PizzaDetail = ({route}: any) => {
     name: 'Small',
     price: 0,
   });
-  const [extra, setExtra] = useState<{
-    id: number;
-    name: string;
-    price: number[];
-  } | null>();
+
+  const [extra, setExtra] = useState<
+    {
+      id: number;
+      name: string;
+      price: number[];
+    }[]
+  >([]);
 
   const [count, setCount] = useState<number>(1);
   const [price, setPrice] = useState<number>(item?.price ?? 0);
 
   const productType: EProductType = EProductType.PIZZA;
 
-  useEffect(() => {
-    if (size) {
-      setPrice(item?.price + size?.price + (extra?.price?.[size?.id] ?? 0));
-    }
-  }, [extra, size]);
+  const EXTRAS: {
+    id: number;
+    name: string;
+    price: number[];
+  }[] = [
+    {
+      id: 1,
+      name: 'Onion',
+      price: [3, 6, 9],
+    },
+    {
+      id: 2,
+      name: 'Cheese',
+      price: [4, 8, 10],
+    },
+    {
+      id: 3,
+      name: 'Olive',
+      price: [1, 2, 3],
+    },
+  ];
 
   useEffect(() => {
-    setExtra(null);
-  }, [size]);
+    if (size) {
+      let extraPrice: any = 0;
+      extra?.map(x => {
+        extraPrice += x?.price[size?.id];
+      });
+      setPrice(item?.price + size?.price + extraPrice);
+    }
+  }, [extra, size]);
 
   const decreaseCount = () => setCount(count => --count);
 
@@ -61,6 +86,7 @@ const PizzaDetail = ({route}: any) => {
       size,
       count,
       productType,
+      extra,
     };
 
     cartStore.addToCart(params);
@@ -84,40 +110,18 @@ const PizzaDetail = ({route}: any) => {
     },
   ];
 
-  const EXTRAS: {id: number; name: string; price: number[]}[] = [
-    {
-      id: 1,
-      name: 'Onion',
-      price: [3, 6, 9],
-    },
-    {
-      id: 2,
-      name: 'Cheese',
-      price: [4, 8, 10],
-    },
-    {
-      id: 3,
-      name: 'Olive',
-      price: [1, 2, 3],
-    },
-  ];
-
-  // const EXTRAS = [
-  //   {
-  //     id: 1,
-  //     name: 'Cheese',
-  //     price: [4, 6, 8],
-  //   },
-  // ];
-
   const onPress = (item: {id: number; name: string; price: number}) => {
     actionSheetRef.current?.hide();
     setSize(item);
   };
 
   const onPressExtra = (item: {id: number; name: string; price: number[]}) => {
-    extraActionRef.current?.hide();
-    setExtra(item);
+    if (extra?.find(x => x.id === item?.id)) {
+      let arr = extra.filter(x => x.id !== item?.id);
+      setExtra(arr);
+    } else {
+      setExtra(extra => [...extra, item]);
+    }
   };
 
   const renderSize = ({
@@ -130,7 +134,16 @@ const PizzaDetail = ({route}: any) => {
     item,
   }: {
     item: {id: number; name: string; price: number[]};
-  }) => <PizzaExtra {...{item, size, onPress: onPressExtra}} />;
+  }) => (
+    <PizzaExtra
+      {...{
+        item,
+        size,
+        onPress: onPressExtra,
+        isChecked: extra.find(x => x?.id === item?.id) ? true : false,
+      }}
+    />
+  );
 
   return (
     <View style={styles.container}>
@@ -146,7 +159,7 @@ const PizzaDetail = ({route}: any) => {
           </Pressable>
 
           <Pressable onPress={openExtraAction} style={styles.sizeContainer}>
-            <Text>Extra: {extra?.name}</Text>
+            <Text>Extra: {extra?.map(x => x?.name).join(', ')}</Text>
           </Pressable>
         </View>
       </View>
@@ -182,6 +195,11 @@ const PizzaDetail = ({route}: any) => {
         <View style={styles.actionSheetContainer}>
           <Text style={styles.title}>Choose Extras</Text>
           <FlatList data={EXTRAS} renderItem={renderExtra} />
+          <Pressable
+            onPress={() => extraActionRef.current?.hide()}
+            style={styles.button}>
+            <Text style={styles.buttonText}>Add</Text>
+          </Pressable>
         </View>
       </ActionSheet>
     </View>
