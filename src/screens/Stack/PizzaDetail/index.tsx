@@ -2,12 +2,13 @@ import {View, Text, Image, Pressable, FlatList} from 'react-native';
 import React, {useEffect, useRef, useState} from 'react';
 
 import styles from './style';
-import {Button, Icon} from 'custom-components/src';
+import {Icon} from 'custom-components/src';
 import ActionSheet, {ActionSheetRef} from 'react-native-actions-sheet';
 import {PizzaExtra, PizzaSize} from './components';
 import {cartStore} from '../../../store';
 import {observer} from 'mobx-react-lite';
 import {EProductType, IPizza} from '../../../constants/types';
+import { useNavigation } from '@react-navigation/native';
 
 const PizzaDetail = ({route}: any) => {
   const {item}: {item: IPizza} = route?.params ?? {};
@@ -73,15 +74,18 @@ const PizzaDetail = ({route}: any) => {
 
   const openExtraAction = () => extraActionRef?.current?.show();
 
+  const navigation = useNavigation<any>()
+
   const addToCart = () => {
     // console.log([4, 6, 8][size?.id])
     const params = {
-      item: {
+      item
+   /*    : {
         ...item,
         id: item?.id?.toString()?.includes(EProductType.PIZZA)
           ? item?.id
           : item?.id + productType,
-      },
+      }, */,
       price,
       size,
       count,
@@ -90,6 +94,7 @@ const PizzaDetail = ({route}: any) => {
     };
 
     cartStore.addToCart(params);
+    navigation.goBack()
   };
 
   const SIZES = [

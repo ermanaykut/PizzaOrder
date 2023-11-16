@@ -15,8 +15,8 @@ const ProductItem = ({item}: {item: any}) => {
   const [count, setCount] = useState<number>(item?.count);
 
   useEffect(() => {
-    if (item && item?.count) setCount(item?.count);
-  }, [item]);
+    if (item?.count !== count) setCount(item?.count);
+  }, [item?.count, count]);
 
   const navigateToDetail = () => {
     navigation.navigate(PAGES.PIZZA_DETAIL.name, {
